@@ -32,7 +32,7 @@ pw = input("pw을 입력하시오 :")
 # In[124]:
 
 
-driver = webdriver.Chrome('C:/Users/Kim/Desktop/chromedriver.exe')
+driver = webdriver.Chrome('/chromdriver.exe')
 
 
 # ### 암묵적으로 웹 자원 로드를 위해 3초까지 기다려 준다.
