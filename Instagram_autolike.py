@@ -8,7 +8,7 @@ id = 'id'
 password = 'password'
 
 timeline_like_count = 120
-hash_tags = ['ÄÚµù', 'ºòµ¥ÀÌÅÍ','º¸¾ÆÁî']
+hash_tags = ['ì½”ë”©', 'ë¹…ë°ì´í„°','ë³´ì•„ì¦ˆ']
 hash_tags_count = 60
 
 browser = webdriver.Chrome('C:/Users/Kim/Desktop/chromedriver')
@@ -43,9 +43,25 @@ def timeline_like(timeline_like_count):
     pass
 
 def hash_tags_like(hash_tags, hash_tags_count):
-    '''
-    ÇØ½ÃÅÂ±× ÁÁ¾Æ¿ä ±¸Çö
-    '''
+    for i in range(len(hash_tags)):
+        
+        browser.get("https://www.instagram.com/explore/tags/"+hash_tags[i]+"/")
+        for i in range(len(hash_tags)):
+            photos=browser.find_elements_by_css_selector("div._9AhH0")
+            photos[i].click()
+            
+            browser.implicitly_wait(2)
+        
+            like = browser.find_element_by_xpath("/html/body/div[3]/div/div[2]/div/article/div[2]/section[1]/span[1]/button")
+            like.click()
+            
+            browser.implicitly_wait(2)
+        
+            close = browser.find_element_by_xpath("/html/body/div[3]/div/button")
+            close.click()
+            
+            browser.implicitly_wait(2)
+  
     pass
 
 
