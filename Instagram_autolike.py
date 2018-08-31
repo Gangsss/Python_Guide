@@ -56,7 +56,7 @@ def timeline_like(timeline_like_count):
             heart_buttons = browser.find_elements_by_css_selector('span.fr66n')
             button= heart_buttons[i].find_element_by_css_selector('button')
             likebutton= button.find_element_by_css_selector('span.glyphsSpriteHeart__outline__24__grey_9.u-__7')
-            ikebutton.click()
+            likebutton.click()
                 
         except NoSuchElementException:
             print("피드의 " +str(i+1)+"번째 사진은 이미 좋아요가 눌려있습니다.")
