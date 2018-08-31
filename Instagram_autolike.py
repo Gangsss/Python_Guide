@@ -19,28 +19,38 @@ browser.get('https://instagram.com/')
 
 browser.implicitly_wait(3)
 
+time.sleep(3) # login 함수가 먹히는 거 방지
+
 login_link = browser.find_element_by_css_selector('p.izU2O').find_element_by_css_selector('a')
 login_link.click()
 
 def login(id, password):
+
+    input = browser.find_elements_by_css_selector("input._2hvTZ") #변수정리
     
-    id_input=browser.find_elements_by_css_selector("input._2hvTZ")[0]
+    id_input=input[0]
     id_input.send_keys(id)
     
     browser.implicitly_wait(3)
     
-    pass_input=browser.find_elements_by_css_selector("input._2hvTZ")[1]
+    pass_input=input[1]
     pass_input.send_keys(password)
     
     browser.find_element_by_css_selector('button._5f5mN').click()
     
-    pass
 
 def timeline_like(timeline_like_count):
-    for i in range(timeline_like_count):
-        Button_like=browser.find_elements_by_css_selector('span.fr66n')[i].find_element_by_css_selector   ('button')
-        Button_like.click()
-    pass
+    
+    browser.get('https://www.instagram.com/') # 다른 화면에서 일단 인스타그램 피드로
+    
+    try:
+        for i in range(timeline_like_count):
+            buttons = browser.find_elements_by_css_selector('span.fr66n')
+            likebutton=buttons[i].find_element_by_css_selector('button')
+            likebutton.click()
+            
+    except IndexError:     #index error 피하기 위해 tryexcept문 사용
+        pass
 
 def hash_tags_like(hash_tags, hash_tags_count):
     for i in range(len(hash_tags)):
@@ -61,12 +71,11 @@ def hash_tags_like(hash_tags, hash_tags_count):
             close.click()
             
             browser.implicitly_wait(2)
-  
-    pass
 
 
 login(id, password)
-timeline_like(timelinke_like_count)
+timeline_like(timeline_like_count)
 hash_tags_like(hash_tags, hash_tags_count)
 
 browser.quit()
+
