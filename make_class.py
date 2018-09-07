@@ -3,15 +3,14 @@ import random
 from selenium import webdriver
 from urllib.parse import quote
 from selenium.common.exceptions import NoSuchElementException
-import request
 from bs4 import BeautifulSoup
 
 
 
 timeline_like_count = 80
-hash_tags = ['¾È¾Ï','°Ç´ë','º¸¾ÆÁî']
+hash_tags = ['ì•ˆì•”','ê±´ëŒ€','ë³´ì•„ì¦ˆ']
 hash_tags_count = 120
-location = ['¼­¿ï, ¼­¿ï¿ª, °Ç´ëÀÔ±¸¿ª']
+location = ['ì„œìš¸, ì„œìš¸ì—­, ê±´ëŒ€ì…êµ¬ì—­']
 
 browser = webdriver.Chrome('C:/Users/Kim/Desktop/chromedriver')
 
@@ -24,22 +23,22 @@ browser.implicitly_wait(3)
 login_link = browser.find_element_by_css_selector('p.izU2O').find_element_by_css_selector('a')
 login_link.click()
 
-time.sleep(3) # login ÇÔ¼ö°¡ ¸ÔÈ÷´Â °Å ¹æÁö
-#wait.until(ExpectedConditions.stalenessOf(whatever element)); ÀÌ·± °Íµµ ÀÖ´Ù°í ÇÑ´Ù
+time.sleep(3) # login í•¨ìˆ˜ê°€ ë¨¹íˆëŠ” ê±° ë°©ì§€
+#wait.until(ExpectedConditions.stalenessOf(whatever element)); ì´ëŸ° ê²ƒë„ ìˆë‹¤ê³  í•œë‹¤
 #https://stackoverflow.com/questions/40029549/how-to-avoid-staleelementreferenceexception-in-selenium-python
 
 
 
-## Å¬·¡½ºÈ­ __init__ ¸Ş¼­µå ÀÌ¿ë-> ·Î±×ÀÎÀ» ¹Ù·Î ÇÒ ¼ö ÀÖ°Ô
+## í´ë˜ìŠ¤í™” __init__ ë©”ì„œë“œ ì´ìš©-> ë¡œê·¸ì¸ì„ ë°”ë¡œ í•  ìˆ˜ ìˆê²Œ
 
 
-class auto_insta:
+class Autoinsta:
     def __init__(self, id, password):
         
         self.id = id
         self.password= password
 
-        input = browser.find_elements_by_css_selector("input._2hvTZ") #º¯¼öÁ¤¸®
+        input = browser.find_elements_by_css_selector("input._2hvTZ") #ë³€ìˆ˜ì •ë¦¬
 
         id_input=input[0]
         id_input.send_keys(self.id)
@@ -51,7 +50,7 @@ class auto_insta:
 
         browser.find_element_by_css_selector('button._5f5mN').click()
 
-        print("·Î±×ÀÎ ¿Ï·á")   
+        print("ë¡œê·¸ì¸ ì™„ë£Œ")   
         print('-'*20)
 
         time.sleep(3)
@@ -59,7 +58,7 @@ class auto_insta:
 
     def timeline_like(self,timeline_like_count):
 
-        browser.get('https://www.instagram.com/') # ´Ù¸¥ È­¸é¿¡¼­ ÀÏ´Ü ÀÎ½ºÅ¸±×·¥ ÇÇµå·Î
+        browser.get('https://www.instagram.com/') # ë‹¤ë¥¸ í™”ë©´ì—ì„œ ì¼ë‹¨ ì¸ìŠ¤íƒ€ê·¸ë¨ í”¼ë“œë¡œ
         for i in range(timeline_like_count):
             try:
                 heart_buttons = browser.find_elements_by_css_selector('span.fr66n')
@@ -68,11 +67,11 @@ class auto_insta:
                 likebutton.click()
 
             except NoSuchElementException:
-                print("ÇÇµåÀÇ " +str(i+1)+"¹øÂ° »çÁøÀº ÀÌ¹Ì ÁÁ¾Æ¿ä°¡ ´­·ÁÀÖ½À´Ï´Ù.")
+                print("í”¼ë“œì˜ " +str(i+1)+"ë²ˆì§¸ ì‚¬ì§„ì€ ì´ë¯¸ ì¢‹ì•„ìš”ê°€ ëˆŒë ¤ìˆìŠµë‹ˆë‹¤.")
 
 
-            except IndexError:     #index error ÇÇÇÏ±â À§ÇØ tryexcept¹® »ç¿ë
-                print("´õ ÀÌ»ó »çÁøÀÌ ¾ø½À´Ï´Ù.")
+            except IndexError:     #index error í”¼í•˜ê¸° ìœ„í•´ tryexceptë¬¸ ì‚¬ìš©
+                print("ë” ì´ìƒ ì‚¬ì§„ì´ ì—†ìŠµë‹ˆë‹¤.")
 
         browser.implicitly_wait(2)
         print('-'*20)
@@ -81,7 +80,7 @@ class auto_insta:
     def hash_tags_like(self,hash_tags, hash_tags_count):
         for i in range(len(hash_tags)):
             browser.get("https://www.instagram.com/explore/tags/"+hash_tags[i]+"/")
-            time.sleep(3) # ÃµÃµÈ÷ µé¾î°¡±â ¸·È÷´Â °Å ¹æÁö
+            time.sleep(3) # ì²œì²œíˆ ë“¤ì–´ê°€ê¸° ë§‰íˆëŠ” ê±° ë°©ì§€
             for k in range(hash_tags_count):
                 photos=browser.find_elements_by_css_selector("div._9AhH0")
                 photos[k].click()
@@ -90,20 +89,20 @@ class auto_insta:
                 try:
                     heart = browser.find_element_by_css_selector('span.fr66n')
                     button= heart.find_element_by_css_selector('button')
-                    # htmlÄÚµå¿¡ ¶ç¾î¾²±â°¡ ÀÖÀ» ½Ã .À¸·Î Ã¤¿öÁØ´Ù
-                    # 'glyphsSpriteHeart__filled__24__red_5 u-__7' ->¡®glyphsSpriteHeart__filled__24__red_5.u-__7¡¯
+                    # htmlì½”ë“œì— ë„ì–´ì“°ê¸°ê°€ ìˆì„ ì‹œ .ìœ¼ë¡œ ì±„ì›Œì¤€ë‹¤
+                    # 'glyphsSpriteHeart__filled__24__red_5 u-__7' ->â€˜glyphsSpriteHeart__filled__24__red_5.u-__7â€™
                     likebutton= button.find_element_by_css_selector('span.glyphsSpriteHeart__outline__24__grey_9.u-__7')
 
                     likebutton.click()
 
                 except NoSuchElementException:
-                    # NoSuchElementExceptionÀ» Àû¿ëÇÏ±â À§ÇØ¼­´Â
-                    # from selenium.common.exceptions import NoSuchElementExceptionÀ» ÇØ¾ßÇÑ´Ù.
-                    print("#"+hash_tags[i]+"ÀÇ "+str(k+1)+"¹øÂ° »çÁøÀº ÀÌ¹Ì ÁÁ¾Æ¿ä°¡ ´­·ÁÀÖ½À´Ï´Ù.")
+                    # NoSuchElementExceptionì„ ì ìš©í•˜ê¸° ìœ„í•´ì„œëŠ”
+                    # from selenium.common.exceptions import NoSuchElementExceptionì„ í•´ì•¼í•œë‹¤.
+                    print("#"+hash_tags[i]+"ì˜ "+str(k+1)+"ë²ˆì§¸ ì‚¬ì§„ì€ ì´ë¯¸ ì¢‹ì•„ìš”ê°€ ëˆŒë ¤ìˆìŠµë‹ˆë‹¤.")
 
 
                 except IndexError:    
-                    print("´õ ÀÌ»ó »çÁøÀÌ ¾ø½À´Ï´Ù.")
+                    print("ë” ì´ìƒ ì‚¬ì§„ì´ ì—†ìŠµë‹ˆë‹¤.")
 
                 browser.implicitly_wait(2)
 
@@ -113,15 +112,15 @@ class auto_insta:
                 browser.implicitly_wait(2)
 
         print('-'*20)
-        print('³¡³µ½À´Ï´Ù~')
+        print('ëë‚¬ìŠµë‹ˆë‹¤~')
 
     def search_by_loc(self,location):
         for i in range(len(location)):
             browser.get('https://www.instagram.com')
             time.sleep(3)
-            browser.set_window_size(1024, 600) # ÆäÀÌÁö°¡ ¾î´ÀÁ¤µµ Ä¿¾ß °Ë»ö Ã¢ÀÌ º¸ÀÌ¹Ç·Î °íÁ¤ ½ÃÅ²´Ù.
+            browser.set_window_size(1024, 600) # í˜ì´ì§€ê°€ ì–´ëŠì •ë„ ì»¤ì•¼ ê²€ìƒ‰ ì°½ì´ ë³´ì´ë¯€ë¡œ ê³ ì • ì‹œí‚¨ë‹¤.
             time.sleep(2)
-            # ¹İº¹½Ã °Ë»ö¾î°¡ ½×ÀÎ´Ù. ÀÌ¸¦ ¹æÁöÇÏ±â À§ÇØ Ã³À½¿¡ °Ë»ö¾î »èÁ¦¹öÆ°À» ´©¸£±â 
+            # ë°˜ë³µì‹œ ê²€ìƒ‰ì–´ê°€ ìŒ“ì¸ë‹¤. ì´ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ ì²˜ìŒì— ê²€ìƒ‰ì–´ ì‚­ì œë²„íŠ¼ì„ ëˆ„ë¥´ê¸° 
             browser.find_element_by_css_selector('div.pbgfb.Di7vw ').click()
             time.sleep(2)
             browser.find_element_by_css_selector('div.aIYm8.coreSpriteSearchClear').click()
@@ -133,14 +132,14 @@ class auto_insta:
             soup = BeautifulSoup(html,'html.parser')
             page_all = soup.select('a.yCE8d')
 
-            # À§Ä¡´Â ÅÂ±×·Î °Ë»öÇÏ´Â °Í°ú ´Ù¸£°Ô #ÀÌ ºÙ¾î ÀÖÁö¾Ê´Ù. 
-            # .text()¸¦ ÀÌ¿ëÇØ tag¾ÈÀÇ ÅØ½ºÆ®¸¦ °¡Á®¿À°í ±×°ÍÀÌ location ÀÌ °°À¸¸é
-            # href¿¡ ÀÖ´Â ÁÖ¼Ò¸¦ °¡Á®´Ù°¡ ¾´´Ù.
+            # ìœ„ì¹˜ëŠ” íƒœê·¸ë¡œ ê²€ìƒ‰í•˜ëŠ” ê²ƒê³¼ ë‹¤ë¥´ê²Œ #ì´ ë¶™ì–´ ìˆì§€ì•Šë‹¤. 
+            # .text()ë¥¼ ì´ìš©í•´ tagì•ˆì˜ í…ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ê³  ê·¸ê²ƒì´ location ì´ ê°™ìœ¼ë©´
+            # hrefì— ìˆëŠ” ì£¼ì†Œë¥¼ ê°€ì ¸ë‹¤ê°€ ì“´ë‹¤.
             url =''
 
             for page in page_all:
                 if page.text == location:
                     url+= page.get('href')
-                    print('°Ë»öÇÑ '+location[i]+'ÀÌ(°¡) À§Ä¡·Î µî·Ï µÇ¾îÀÖ½À´Ï´Ù.')
+                    print('ê²€ìƒ‰í•œ '+location[i]+'ì´(ê°€) ìœ„ì¹˜ë¡œ ë“±ë¡ ë˜ì–´ìˆìŠµë‹ˆë‹¤.')
             if url =='':
-                print('°Ë»öÇÑ '+ location[i] + 'ÀÌ(°¡) À§Ä¡·Î µî·ÏÀÌ ¾ÈµÇ¾îÀÖ½À´Ï´Ù.')
+                print('ê²€ìƒ‰í•œ '+ location[i] + 'ì´(ê°€) ìœ„ì¹˜ë¡œ ë“±ë¡ì´ ì•ˆë˜ì–´ìˆìŠµë‹ˆë‹¤.')
